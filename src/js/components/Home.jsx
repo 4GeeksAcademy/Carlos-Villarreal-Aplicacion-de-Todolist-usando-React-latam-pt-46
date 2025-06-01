@@ -37,7 +37,7 @@ const Home = () => {
 				})
 			}
 			<small className="text-muted d-flex text-star mx-2">
-				{taskList.length == 0 ? "Sin tareas pendientes, añada tareas" : taskList.length + " item left"}
+				{taskList.length == 0 ? "Sin tareas pendientes, añada tareas" : taskList.length + " items left"}
 			</small>
 		</div>
 	);
