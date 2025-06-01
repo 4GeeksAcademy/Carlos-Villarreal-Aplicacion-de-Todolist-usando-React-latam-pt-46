@@ -1,26 +1,44 @@
-import React from "react";
+import React, { useState } from "react";
 
-//include images into your bundle
-import rigoImage from "../../img/rigo-baby.jpg";
 
 //create your first component
 const Home = () => {
-	return (
-		<div className="text-center">
-            
 
-			<h1 className="text-center mt-5">Hello Rigo!</h1>
-			<p>
-				<img src={rigoImage} />
-			</p>
-			<a href="#" className="btn btn-success">
-				If you see this green button... bootstrap is working...
-			</a>
-			<p>
-				Made by{" "}
-				<a href="http://www.4geeksacademy.com">4Geeks Academy</a>, with
-				love!
-			</p>
+	let arrayTask = [];
+	const [taskList, setTaskList] = useState([]);
+
+	const handleKeyDown = (event) => {
+		if (event.keyCode === 13) {
+			setTaskList([...taskList, event.target.value])
+			event.target.value = "";
+		};
+
+	}
+
+	return (
+		<div className="text-center container">
+
+			<h1 className="text-center mt-5">Todo List!</h1>
+			<input className="form-control" placeholder="Escribe la nueva tarea que quieres añadir"
+				onKeyDown={handleKeyDown} />
+
+			{
+				taskList.map((task, index) => {
+					return (<div className="position-relative mt-2">
+						<p className="form-control text-start mb-0" rows="1">{task}</p>
+						<button id={index} type="button" className="btn-close btn-close-hover position-absolute top-0 end-0 m-2 mb-0"
+							onClick={() => {
+								setTaskList(taskList.filter((value, indexTaskList) => {
+									return index !== indexTaskList
+								}))
+							}
+							} />
+					</div>)
+				})
+			}
+			<small className="text-muted d-flex text-star mx-2">
+				{taskList.length == 0 ? "Sin tareas pendientes, añada tareas" : taskList.length + " item left"}
+			</small>
 		</div>
 	);
 };
